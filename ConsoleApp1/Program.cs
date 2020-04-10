@@ -1,74 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 
-interface IDelaj
+class MojSklad<T>
 {
-    void delaj();
+    T[] data;
+    int kapaciteta = 0;
+    int st_elementov = 0;
+
+    public MojSklad(int kap = 10)
+    {
+        kapaciteta = kap;
+        data = new T[kapaciteta];
+    }
+
+    public void push(T kaj) {
+        if (st_elementov >= kapaciteta)
+        {
+            kapaciteta *= 2;
+            T[] tmp = new T[kapaciteta];
+            for (int i = 0; i < st_elementov; ++i)
+                tmp[i] = data[i];
+            data = tmp;
+        }
+        data[st_elementov++] = kaj;
+    }
+    public T pop() {
+        if (st_elementov > 0)
+            return data[--st_elementov];
+
+        return default(T); 
+    }
+
+    public T this[int pos] {  get { return data[pos]; } }
+    public T at(int pos) {  return data[pos]; }
 }
+
 class Program {        
     static void Main()
     {
-        izpis(10, 3);
-        izpis(10.2, 5);
-        izpis(7, "alfa");
-        izpis("keks", "smreka");
+        var msi = new MojSklad<int>();
+        var mss = new MojSklad<string>();
 
-        Alfa<int> a = new Alfa<int>(42);
-        a.izpis();
-        a.izpis("keks");
-        a.izpis(42);
-    }
+        msi.push(10);
+        msi.push(20);
+        msi.push(30);
 
-    private static void izpis<T, U>(T v, U u)
-    {
-        Console.WriteLine("({0}; {1})", v.ToString(), u.ToString());
-    }
+        Console.WriteLine(msi[0]);
+        Console.WriteLine(msi.at(0));
 
-    // Constraint
-    public T max<T>(T a, T b)
-             where T : IComparable<T>
-    {
-        return a.CompareTo(b) > 0 ? a : b;  // a > b
-    }
-
-    public void nekaj<T>(T a) where T : IDelaj, new()
-    {
-        T t = new T();
-        a.delaj();
-        Console.WriteLine(a);
-    }
-
-    public void nekaj(IDelaj a)
-    {
-        a.delaj();
-        Console.WriteLine(a);
-    }
-
-    public void swap<T>(ref T a, ref T b)
-    {
-        T t = a;
-        a = b;
-        b = t;
+        mss.push("abc");
+        mss.push("def");
     }
 }
-
-class Alfa<T>
-{
-    T podatek;
-
-    public Alfa(T p) { podatek = p; }
-    public void izpis()
-    {
-        Console.WriteLine("[{0}]", podatek);
-    }
-    public void izpis<U>(U u)
-    {
-        Console.WriteLine("[{0}, {1}]", podatek, u);
-    }
-    public void izpis(string t)
-    {
-        Console.WriteLine("({0})", t);
-    }
-}
-
 
