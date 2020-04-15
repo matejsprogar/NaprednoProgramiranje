@@ -32,11 +32,16 @@ class MojSklad<Tip>
     }
 }
 
+delegate void MojaFunkcija();
+
 class Program {        
-    static void xMain()
+    static void Main()
     {
         var msi = new MojSklad<int>();
         var mss = new MojSklad<string>();
+        var msf = new MojSklad<MojaFunkcija>();
+
+        msf.push(ConsoleApp2.Primer.prva);
 
         msi.push(10);
         msi.push(20);
@@ -44,6 +49,20 @@ class Program {
 
         mss.push("abc");
         mss.push("def");
+
+        int x = 4;
+        int y = 7;
+        swap(ref x, ref y);
+
+        string u = "alfa", v = "beta";
+        swap(ref u, ref v);
+    }
+
+    static void swap<T>(ref T a, ref T b)
+    {
+        var tmp = a;
+        a = b;
+        b = tmp;
     }
 }
 
