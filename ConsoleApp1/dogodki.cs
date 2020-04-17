@@ -35,7 +35,7 @@ namespace ConsoleApp3
         public Novinar(string ime) { this.ime = ime; }
         public void obvesti(bool rezultat)
         {
-            Console.WriteLine("{0}, nekdo je {1}", ime, rezultat);
+            Console.WriteLine("{0}: nekdo je {1}", ime, rezultat);
         }
     }
 }
