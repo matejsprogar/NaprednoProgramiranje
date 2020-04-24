@@ -6,7 +6,7 @@ namespace ConsoleApp3
 {
     class Demokracija
     {
-        static void Main()
+        static void xMain()
         {
             Novinar rtvslo = new Novinar("RTV");
             Novinar poptv = new Novinar("POP");
