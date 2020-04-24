@@ -99,7 +99,7 @@ namespace NP
 
     class App
     {
-        public static void Main()
+        public static void xMain()
         {
             TestiVektorja.VsiTesti();
         }
