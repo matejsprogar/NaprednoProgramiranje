@@ -64,12 +64,12 @@ namespace NP
                 int sp = vektor.skalarni_produkt(v1, v2);
                 Debug.Assert(sp == 29, "napaka v skalarnem produktu");
             },
-            // testSpreminjanjaKoordinat
+            // testDostopaDoKoordinat
             () => {
                 vektor v = new vektor();
-                v.x = 1;
-                v.y = 3;
-                Debug.Assert(v.x == 1 && v.y == 3, "napaka pri spreminjanju koordinat");
+                int x = v.x;    // get
+                v.y = 1;        // set
+                Debug.Assert(x == 0 && v.y == 1, "napaka pri dostopu do koordinat");
             }
         };
 
