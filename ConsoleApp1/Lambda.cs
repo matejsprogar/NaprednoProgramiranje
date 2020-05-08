@@ -10,7 +10,7 @@ namespace ConsoleApp1
 
         delegate int transform(string s);
 
-        public static void Main()
+        public static void xMain()
         {
             int a = 1;
             Action f1 = () => Console.WriteLine(a);
