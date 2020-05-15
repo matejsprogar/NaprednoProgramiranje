@@ -53,7 +53,7 @@ namespace Predavanja
     }
     class izjeme
     {
-        public static void Main()
+        public static void xMain()
         {
             TujRazred tezak = new TujRazred();		// MANAGED nadzira prevajalnik/GC
 
