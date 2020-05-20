@@ -64,7 +64,7 @@ namespace Predavanja
     }
     class Enumeracija
     {
-        public static void Main()
+        public static void xMain()
         {
             // foreach uporablja tudi "neuradne" sekvence
             foreach(int x in new Gajba())
