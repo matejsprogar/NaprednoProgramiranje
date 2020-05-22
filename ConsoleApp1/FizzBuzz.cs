@@ -28,31 +28,65 @@ namespace Predavanja
             }
         }
         // S: 1 2 3 4 ... 15 ...  100
-        // C: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 16 ...       // izpisuje FB
-        // A: 1 2 4 5 7 8 10 11 ...                         // izpisuje F
-        // B: 1 2 4 7 8 11 ...                              // izpisuje B
-        static void Main()
+        // FB:1 2 3 4 5 6 7 8 9 10 11 12 13 14 16 ...       
+        // F: 1 2 4 5 7 8 10 11 ...                         
+        // B: 1 2 4 7 8 11 ...                              
+        static void yMain()
         {
             IEnumerable<int> S = sekvenca(1, 30);   // obljuba sekvence od 1 do 30, sekvence se NI
-            dump(S);                                // UPORABI sekvenco, zato jo moram narediti ZDAJ
+            //dump(S);                                // UPORABI sekvenco, zato jo moram narediti ZDAJ
 
-            // nacin 1: S -> C -> A -> B;
-            IEnumerable<int> C = izloci_stevila_ki_so_deljiva_z_deliteljem(S, 15, "FB");
-            // dump(C);
-            IEnumerable<int> A = izloci_stevila_ki_so_deljiva_z_deliteljem(C, 3, "F");
-            // dump(A);
-            IEnumerable<int> B = izloci_stevila_ki_so_deljiva_z_deliteljem(A, 5, "B");
+            // nacin 1: S -> FBS -> FFBS -> BFFBS;
+            IEnumerable<int> FBS = izloci_stevila(S, deljivo_s_15, ()=>Console.Write("XX "));
+            IEnumerable<int> FFBS = izloci_stevila(FBS, x => x%3 == 0, "F");
+            IEnumerable<int> BFFBS = izloci_stevila_ki_so_deljiva_z_deliteljem(FFBS, 5, "B");
 
-            dump(B);    // OBJAVA rezultata
+            dump(BFFBS);    // OBJAVA rezultata
 
-            Console.WriteLine("*********");
-            // nacin 2
+            // nacin 2: S -> BFFBS
             foreach (int x in izloci_stevila_ki_so_deljiva_z_deliteljem(izloci_stevila_ki_so_deljiva_z_deliteljem(izloci_stevila_ki_so_deljiva_z_deliteljem(S, 15, "FB"), 3, "F"), 5, "B"))
                 Console.Write(x+" ");
 
             // nacin 3
-            //foreach(int x in )
+            Console.WriteLine();
+            foreach(int x in izloci_stevila(izloci_stevila(izloci_stevila(S, x => x % 15 == 0, "FB"), x => x % 3 == 0, "F"), x=>x%5 == 0,"B"))
+                Console.Write(x + " ");
+
+            // nacin 4
+            Console.WriteLine();
+            dump(izloci_stevila(izloci_stevila(izloci_stevila(S, x => x % 15 == 0, "FB"), x => x % 3 == 0, "F"), x => x % 5 == 0, "B"));
+
         }
+        static bool deljivo_s_15(int x)
+        {
+            return x % 15 == 0;
+        }
+
+        // ce najdem v sekvenci stevilo, ki izpolnjuje kriterij, ga izlocim in izpisem sporocilo, sicer ga vrnem kot del nove sekvence
+        private static IEnumerable<int> izloci_stevila(IEnumerable<int> seq, Func<int, bool> kriterij, Action ob_izlocitvi)
+        {
+            foreach (int x in seq)
+                //if (x % delitelj != 0)      
+                if (!kriterij(x))
+                    yield return x;
+                else
+                    //Console.Write(msg + " ");
+                    ob_izlocitvi();
+            // yield break === return
+        }
+
+        // ce najdem v sekvenci stevilo, ki izpolnjuje kriterij, ga izlocim in izpisem sporocilo, sicer ga vrnem kot del nove sekvence
+        private static IEnumerable<int> izloci_stevila<T>(IEnumerable<int> seq, Func<int, bool> kriterij, T msg)
+        {
+            foreach (int x in seq)
+                //if (x % delitelj != 0)      
+                if (!kriterij(x))
+                    yield return x;
+                else
+                    Console.Write(msg + " ");
+            // yield break === return
+        }
+        // ce najdem v sekvenci stevilo, ki je deljivo z deliteljem, ga izlocim in izpisem sporocilo, sicer ga vrnem kot del nove sekvence
         private static IEnumerable<int> izloci_stevila_ki_so_deljiva_z_deliteljem(IEnumerable<int> seq, int delitelj, string msg)
         {
             foreach (int x in seq)
@@ -62,6 +96,7 @@ namespace Predavanja
                     Console.Write(msg + " ");
             // yield break === return
         }
+        // kako zgradim sekvenco, KO jo bom rabil
         private static IEnumerable<int> sekvenca(int v1, int v2)
         {
             // yield return 1;

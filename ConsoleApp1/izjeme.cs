@@ -123,8 +123,8 @@ namespace Predavanja
 
         public static void programiranje_z_managed_resourci()
         {
-            int i = 42;
-            string s = "jaz sem string";
+            //int i = 42;
+            //string s = "jaz sem string";
             // ...
         }
 
