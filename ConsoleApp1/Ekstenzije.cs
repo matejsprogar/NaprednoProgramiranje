@@ -29,7 +29,7 @@ namespace Predavanja
     }
     class EkstenzijskeMetode
     {
-        public static void Main()
+        public static void xMain()
         {
             var S = ustvari();
             // IDENTICNO
