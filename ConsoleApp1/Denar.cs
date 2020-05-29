@@ -16,7 +16,7 @@ namespace Predavanja2
         }
         public static EUR operator +(EUR eur, Decimal vrednost)
         {
-            zabelezi_polog(vrednost);                   // kompleksnost tukaj
+            DB.transakcija(new Polog(vrednost));                   // kompleksnost tukaj
             return new EUR(eur.stanje + vrednost);
         }
         public static EUR operator +(EUR eur1, EUR eur2)
@@ -50,7 +50,7 @@ namespace Predavanja2
             eur.polozi(3);                      // enakovredna sintaksa
             eur.polozi(new EUR(3));             // enakovredna sintaksa
 
-            eur.izvedi(new Polog(new EUR(3)));  // prekompleksen pristop
+            eur.izvedi(new Polog(3));           // verjetno prekompleksen pristop
 
             usd -= 5;   // dvig 5 usd
 
