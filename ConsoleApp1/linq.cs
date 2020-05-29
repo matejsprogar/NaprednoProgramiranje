@@ -17,7 +17,7 @@ namespace Predavanja
     }
     class linq
     {
-        public static void Main()
+        public static void xMain()
         {
             int[] tab = { 2, 7, -3, 21, 14, 0, 5 };
 
